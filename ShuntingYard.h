@@ -1,8 +1,7 @@
 #include <iostream>
 #include <queue>
 #include <stack>
-aaaaaaaaaaaaaaaaaaaaaaaaaeee
-using std::string;
+ using std::string;
 
 class ShuntingYard {
     string str;
