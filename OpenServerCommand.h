@@ -1,6 +1,7 @@
 #include "Command.h"
 #include <string>
-#include <thread> 
+#include <thread>
+#include <map>
 #include <iostream>
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -8,25 +9,30 @@
 #include "server.h"
 
 
-class OpenServerCommand : public Command{
-
+class OpenServerCommand : public Command {
 	std::thread thread;
 	Server* server;
 	int seconds;
+	std::map<string, double>* symbolTable;
+    std::map<string, string>* names;
 
 public:
-
- 	OpenServerCommand(){
+ 	OpenServerCommand(std::map<string, double>* symbolTable, std::map<string, string>* names) :
+        Command(), symbolTable(symbolTable), names(names) {
+ 
 		server = Server::getInstance(); 
 	}
 
 	static vector<string> initXmlTable() {
 		vector<string> xmlVal;
 		xmlVal.push_back("/instrumentation/airspeed-indicator/indicated-speed-kt");
+		xmlVal.push_back("/sim/time/warp");
+		xmlVal.push_back("/controls/switches/magnetos");
+		xmlVal.push_back("/instrumentation/heading-indicator/offset-deg");
 		xmlVal.push_back("/instrumentation/altimeter/indicated-altitude-ft");
 		xmlVal.push_back("/instrumentation/altimeter/pressure-alt-ft");
 		xmlVal.push_back("/instrumentation/attitude-indicator/indicated-pitch-deg");
-		xmlVal.push_back("/instrumentation/attitude-indicator/indicated-roll-deg");
+		xmlVal.push_back(" ");
 		xmlVal.push_back("/instrumentation/attitude-indicator/internal-pitch-deg");
 		xmlVal.push_back("/instrumentation/attitude-indicator/internal-roll-deg");
 		xmlVal.push_back("/instrumentation/encoder/indicated-altitude-ft");
@@ -43,20 +49,32 @@ public:
 		xmlVal.push_back("/controls/flight/elevator");
 		xmlVal.push_back("/controls/flight/rudder");
 		xmlVal.push_back("/controls/flight/flaps");
+		xmlVal.push_back(" ");
 		xmlVal.push_back("/controls/engines/current-engine/throttle");
+		xmlVal.push_back(" ");
+		xmlVal.push_back(" ");
+		xmlVal.push_back(" ");
+		xmlVal.push_back("/controls/flight/speedbrake");
+		xmlVal.push_back(" ");
+		xmlVal.push_back(" ");
+		xmlVal.push_back(" ");
+		xmlVal.push_back(" ");
+		xmlVal.push_back(" ");
 		xmlVal.push_back("/engines/engine/rpm");
 		return xmlVal;
 	}
-    
+
     int doCommand(vector<string> parameters){
         int port = std::stoi(parameters[0]);
         seconds = std::stoi(parameters[1]);
+        
+		server->activate(port);
+		std::cout << "open server" << std::endl;
 
-		thread = std::thread(readwhile, seconds, port, server);
+		//readwhile(seconds, port, symbolTable, names, server);
+		thread = std::thread(readwhile, seconds, port, symbolTable, names, server);
 
-		// server->activate(port);
-		// readwhile(seconds, server);
-
+		// sleep(60);
 		return 0;
 	}
 
@@ -75,25 +93,32 @@ public:
 		return result;
 	}
 
-	static void readwhile(int seconds, int port, Server* server){
-		server->activate(port);
+	static void readwhile(int seconds, int port, std::map<string, double>* symbolTable,
+		std::map<string, string>* names, Server* server) {
+		
+		vector<string> xml = initXmlTable();
 
-		while(1) {
+		while (1) {
+	
 			std::string response = server->Read();
-			vector<string> splitted = split(response, ",");
-			vector<string> xml = initXmlTable();
-			std::map<string, double> values;
+			vector<string> spl = split(response, ",");
 			for (int i = 0; i < xml.size(); i++) {
-				double number = std::stod(splitted[i].c_str());
-				values[xml[i]] = number;
-				std::cout << "@ " << number << std::endl;
+				double number = std::stod(spl[i].c_str());//למה לא דאבל
+				// std::cout << "a3" << std::endl;
+ 				for (const std::pair<string, string>& p : *names) { //למה לא מכיל סטרינג  הP 
+                    if (p.second == xml[i]) {
+						cout << p.first  << " updating to :" << number << endl;
+          				(*symbolTable)[p.first] = number;
+						break;
+					}
+				}
+				//std::cout << "@ " << number << std::endl;
 			}
 
 			sleep(1 / seconds);
 		}
 	}
-	 
-
+	
     ~OpenServerCommand() {
 		thread.join();
     }

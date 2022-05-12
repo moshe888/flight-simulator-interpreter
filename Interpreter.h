@@ -1,41 +1,49 @@
-#include "Command.h"
+#pragma once
+
 #include <map>
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include "Command.h"
+#include "Connect.h"
+#include "OpenServerCommand.h"
+#include "Var.h"
+#include "Equal.h"
+//#include "While.h"
 
 class Interpreter {
-	std::map<string, Command> map;
+public:
+	std::map<string, Command*> map;
+	std::map<string, double> symbolTable;
+	std::map<string, string> names;
+	int numline;
+	//string file_path;
+	//Command* comands;
 
-	vector<string> split(string str, string delimiter) {
-		vector<string> result;
-
-		size_t pos = 0;
-		string token;
-		while ((pos = str.find(delimiter)) != string::npos) {
-			token = str.substr(0, pos);
-			result.push_back(token);
-			str.erase(0, pos + delimiter.length());
-		}
-
-		return result;
-	}
 
 public:
 	Interpreter() {
-		// map["a"] = A();
+		map["openDataServer"] = new OpenServerCommand(&symbolTable, &names);
+		map["connect"] = new Connect();
+		map["var"] = new Var(&symbolTable, &names);
+		map["equal"] = new Equal(&symbolTable,&names);
+		//map["while"] = new While(&numline, &file_path ,&comands);
+
 	}
 
-	int perform(string command, vector<string> parameters) {
-		return map[command].doCommand(parameters);
+	~Interpreter() {
+		delete map["openDataServer"];
+		delete map["connect"];
+		delete map["var"];
 	}
 
-	vector<string> lexer(string line) {
-		vector<string> words = split(line, " ");
-		return words;
+	void perform(string command, vector<string> parameters) {
+		// if (map.find(command) == map.end()) {
+		// 	std::cout << "Invalid command" << std::endl;
+		// 	return;
+		// }
+		map[command]->doCommand(parameters);
 	}
-
-	void parser(string line) {
-		vector<string> words = lexer(line);
-		string command = words[0];
-		words.erase(words.begin());  // delete first
-		perform(command, words);
-	}
+ 
 };

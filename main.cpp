@@ -2,16 +2,16 @@
 
 int main() {
     Lexer lexer;
-    /*string line;
-    std::cout << "  insert line: ";
-    std::getline(std::cin , line);  
-    std::cout << "  is: " << line << std::endl;
+    // /*string line;
+    // std::cout << "  insert line: ";
+    // std::getline(std::cin , line);  
+    // std::cout << "  is: " << line << std::endl;
  
-    lexer.parser_line(line);
-    sleep(20);
-    lexer.parser_line("connect 127.0.0.1 5402");*/
-
-    lexer.parser_file("file1.txt");
+    // lexer.parser_line(line);
+     
+    // lexer.parser_line("openDataServer 5400 10");
+    
+   lexer.parser_file("file.txt");
 
     ((Connect*) lexer.interpreter.map["connect"])->Send("ls\r\n");
     sleep(1);

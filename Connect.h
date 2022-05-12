@@ -5,7 +5,7 @@ class Connect : public Command {
 //  int port;
 //  std::string ip;
 	Client* client;
-
+	//Client* nnn = new Client();
 public:
  
 	Connect() {
@@ -25,7 +25,7 @@ public:
 	}
 
      void Send(std::string message) {
-         client->Send(message);
+        client->Send(message);
  		 
  	}
 
