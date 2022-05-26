@@ -10,40 +10,52 @@
 #include "OpenServerCommand.h"
 #include "Var.h"
 #include "Equal.h"
-//#include "While.h"
+ //class While;
+ #include "While.h"
+#include "Print.h"
+#include "Sleep.h"
 
-class Interpreter {
+// class While;
+
+class Interpreter
+{
 public:
-	std::map<string, Command*> map;
+	std::map<string, Command *> map;
 	std::map<string, double> symbolTable;
 	std::map<string, string> names;
-	int numline;
-	//string file_path;
-	//Command* comands;
-
 
 public:
-	Interpreter() {
+	Interpreter()
+	{
 		map["openDataServer"] = new OpenServerCommand(&symbolTable, &names);
 		map["connect"] = new Connect();
 		map["var"] = new Var(&symbolTable, &names);
-		map["equal"] = new Equal(&symbolTable,&names);
-		//map["while"] = new While(&numline, &file_path ,&comands);
-
+		map["equal"] = new Equal(&symbolTable, &names);
+		map["while"] = new While(&symbolTable, this);
+		 map["print"] = new Print(&symbolTable);
+		map["sleep"] = new Sleep(&symbolTable);
 	}
 
-	~Interpreter() {
+	~Interpreter()
+	{
 		delete map["openDataServer"];
 		delete map["connect"];
 		delete map["var"];
+		delete map["equal"];
+		delete map["while"];
+		delete map["print"];
+		delete map["sleep"];
 	}
 
-	void perform(string command, vector<string> parameters) {
-		// if (map.find(command) == map.end()) {
-		// 	std::cout << "Invalid command" << std::endl;
-		// 	return;
-		// }
-		map[command]->doCommand(parameters);
+	void perform(Line &line)
+	{
+		if (map.find(line.name_command) == map.end())
+		{
+			std::cout << "Invalid command" << std::endl;
+			return;
+		}
+		map[line.name_command]->doCommand(line);
 	}
- 
 };
+
+ 

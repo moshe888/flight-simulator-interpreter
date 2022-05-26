@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <stdio.h>
 #include <sys/socket.h>
@@ -6,7 +8,7 @@
 #include <string.h>
 #include "Command.h"
 
-#pragma once
+ 
 
 
 class Client
@@ -66,7 +68,7 @@ public:
 
 };
 
-Client* Client::instance = NULL;
+// Client* Client::instance = NULL;
 
     
  

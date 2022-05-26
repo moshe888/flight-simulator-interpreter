@@ -12,13 +12,13 @@ public:
         Command(), symbolTable(symbolTable), names(names)
     {}
 
-    int doCommand(vector<string> parameters); 
-//         if (parameters[2] == "bind") {
-//             (*names)[parameters[0]] = parameters[3];
+    int doCommand( Line& line); 
+//         if (line.parameters[2] == "bind") {
+//             (*names)[line.parameters[0]] = line.parameters[3];
 //         }
 //         else {
-//             //(*names)[parameters[0]] = "";//?
-//             (*symbolTable)[parameters[0]] = (*symbolTable)[parameters[2]];
+//             //(*names)[line.parameters[0]] = "";//?
+//             (*symbolTable)[line.parameters[0]] = (*symbolTable)[line.parameters[2]];
 //         }
 
 //         return 0;

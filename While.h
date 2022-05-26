@@ -1,26 +1,35 @@
+#pragma once
+
 #include "Command.h"
-#include "lexer.h"
+
+class Interpreter;
 
 
-class While : public Command 
+class While : public Command
 {
-    int* numline;
-	string* file_path;
-    Command** comands;
-public: 
-    While(int* numline,string* file_path , Command** comands) 
-        : Command() , numline(numline) , file_path(file_path) , comands(comands) {}
+    map<string, double> *symbolTable;
+    Interpreter* interpreter;
 
-     int doCommand(vector<string> parameters){
-         Lexer lexer;
-        //  לרווץ בלולאה ממספר השורה ולהכניס לקובץ 
+public:
+    While(map<string, double> *symbolTable,Interpreter* interpreter) 
+    : Command(), symbolTable(symbolTable) ,interpreter(interpreter){}
+
+    int doCommand(Line &line);
+    /*{
+
+        while (condition(line.parameters))
+        {
+
+            for (Line &it : line.list_command)
+            {
+                interpreter->perform(it);
+            }
+        }
+
+        //  לרווץ בלולאה ממספר השורה ולהכניס לקובץ
         //  ןאחר כך נפעילר פרסר בלולאה כל עוד התנא מתקיים
         //  ןלמחוק את הקובץ
-
-        
-
-     }
-
-    
-    
+    }*/
+    bool condition(vector<string> parameters);
+ 
 };

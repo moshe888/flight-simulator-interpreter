@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Command.h"
 #include <string>
 #include <thread>
@@ -8,23 +10,25 @@
 #include <unistd.h>
 #include "server.h"
 
-
-class OpenServerCommand : public Command {
+class OpenServerCommand : public Command
+{
 	std::thread thread;
-	Server* server;
+	Server *server;
 	int seconds;
-	std::map<string, double>* symbolTable;
-    std::map<string, string>* names;
+	std::map<string, double> *symbolTable;
+	std::map<string, string> *names;
 
 public:
- 	OpenServerCommand(std::map<string, double>* symbolTable, std::map<string, string>* names) :
-        Command(), symbolTable(symbolTable), names(names) {
- 
-		server = Server::getInstance(); 
+	OpenServerCommand(std::map<string, double> *symbolTable, std::map<string, string> *names) : Command(), symbolTable(symbolTable), names(names)
+	{
+
+		server = Server::getInstance();
 	}
 
-	static vector<string> initXmlTable() {
+	static vector<string> initXmlTable()
+	{
 		vector<string> xmlVal;
+
 		xmlVal.push_back("/instrumentation/airspeed-indicator/indicated-speed-kt");
 		xmlVal.push_back("/sim/time/warp");
 		xmlVal.push_back("/controls/switches/magnetos");
@@ -32,7 +36,7 @@ public:
 		xmlVal.push_back("/instrumentation/altimeter/indicated-altitude-ft");
 		xmlVal.push_back("/instrumentation/altimeter/pressure-alt-ft");
 		xmlVal.push_back("/instrumentation/attitude-indicator/indicated-pitch-deg");
-		xmlVal.push_back(" ");
+		xmlVal.push_back("/instrumentation/attitude-indicator/indicated-roll-deg");
 		xmlVal.push_back("/instrumentation/attitude-indicator/internal-pitch-deg");
 		xmlVal.push_back("/instrumentation/attitude-indicator/internal-roll-deg");
 		xmlVal.push_back("/instrumentation/encoder/indicated-altitude-ft");
@@ -49,41 +53,44 @@ public:
 		xmlVal.push_back("/controls/flight/elevator");
 		xmlVal.push_back("/controls/flight/rudder");
 		xmlVal.push_back("/controls/flight/flaps");
-		xmlVal.push_back(" ");
+		xmlVal.push_back("/controls/engines/engine/throttle");
 		xmlVal.push_back("/controls/engines/current-engine/throttle");
-		xmlVal.push_back(" ");
-		xmlVal.push_back(" ");
-		xmlVal.push_back(" ");
+		xmlVal.push_back("/controls/switches/master-avionics");
+		xmlVal.push_back("/controls/switches/starter");
+		xmlVal.push_back("/engines/active-engine/auto-start");
 		xmlVal.push_back("/controls/flight/speedbrake");
-		xmlVal.push_back(" ");
-		xmlVal.push_back(" ");
-		xmlVal.push_back(" ");
-		xmlVal.push_back(" ");
-		xmlVal.push_back(" ");
+		xmlVal.push_back("/sim/model/c172p/brake-parking");
+		xmlVal.push_back("/controls/engines/engine/primer");
+		xmlVal.push_back("/controls/engines/current-engine/mixture");
+		xmlVal.push_back("/controls/switches/master-bat");
+		xmlVal.push_back("/controls/switches/master-alt");
 		xmlVal.push_back("/engines/engine/rpm");
 		return xmlVal;
 	}
 
-    int doCommand(vector<string> parameters){
-        int port = std::stoi(parameters[0]);
-        seconds = std::stoi(parameters[1]);
-        
+	int doCommand(Line &line)
+	{
+		int port = std::stoi(line.parameters[0]);
+		seconds = std::stoi(line.parameters[1]);
+
 		server->activate(port);
 		std::cout << "open server" << std::endl;
 
-		//readwhile(seconds, port, symbolTable, names, server);
+		// readwhile(seconds, port, symbolTable, names, server);
 		thread = std::thread(readwhile, seconds, port, symbolTable, names, server);
 
 		// sleep(60);
 		return 0;
 	}
 
-	static vector<string> split(string str, string delimiter) {
+	static vector<string> split(string str, string delimiter)
+	{
 		vector<string> result;
 
 		size_t pos = 0;
 		string token;
-		while ((pos = str.find(delimiter)) != string::npos) {
+		while ((pos = str.find(delimiter)) != string::npos)
+		{
 			token = str.substr(0, pos);
 			result.push_back(token);
 			str.erase(0, pos + delimiter.length());
@@ -93,36 +100,54 @@ public:
 		return result;
 	}
 
-	static void readwhile(int seconds, int port, std::map<string, double>* symbolTable,
-		std::map<string, string>* names, Server* server) {
-		
-		vector<string> xml = initXmlTable();
+	static void readwhile(int seconds, int port, std::map<string, double> *symbolTable,
+						  std::map<string, string> *names, Server *server)
+	{
 
-		while (1) {
-	
+		vector<string> xml = initXmlTable(); //למה בפונקציה?
+
+		ofstream file;
+		file.open("out.txt");
+
+		while (1)
+		{
+			file << "--------------\n";
+
 			std::string response = server->Read();
+			file << response << "\n";
 			vector<string> spl = split(response, ",");
-			for (int i = 0; i < xml.size(); i++) {
-				double number = std::stod(spl[i].c_str());//למה לא דאבל
+			file << spl.size() << endl;
+			for (int i = 0; i < xml.size(); i++)
+			{
+				if (spl[i] == "" || spl[i] == " ")
+				{
+					continue;
+				}
+				//	cout << "stod " << spl[i] << endl;
+				double number = stod(spl[i]);
 				// std::cout << "a3" << std::endl;
- 				for (const std::pair<string, string>& p : *names) { //למה לא מכיל סטרינג  הP 
-                    if (p.second == xml[i]) {
-						cout << p.first  << " updating to :" << number << endl;
-          				(*symbolTable)[p.first] = number;
+				for (const std::pair<string, string> &p : *names)
+				{
+					if (p.second == xml[i])
+					{
+						//	cout << p.first  << " updating to :" << number << endl;
+						(*symbolTable)[p.first] = number;
+						file << p.first << "  updating to : " << (*symbolTable)[p.first] << endl;
 						break;
 					}
 				}
-				//std::cout << "@ " << number << std::endl;
+				// std::cout << "@ " << number << std::endl;
 			}
+
 
 			sleep(1 / seconds);
 		}
+		
+		file.close();
 	}
-	
-    ~OpenServerCommand() {
+
+	~OpenServerCommand()
+	{
 		thread.join();
-    }
-
+	}
 };
-
- 

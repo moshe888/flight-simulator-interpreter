@@ -1,3 +1,5 @@
+#pragma once
+
 #include "client.h"
 
 class Connect : public Command {
@@ -15,9 +17,12 @@ public:
 // Connect(int port, std::string ip):Command() , port(port),ip(ip){}
 
 
-	int doCommand(vector<string> parameters) {
-		string ip = parameters[0];
-		int port = std::stoi(parameters[1]);
+	int doCommand(Line& line) {
+		  int x;
+        cout << "The cline ready? enter 1 " << endl ;
+		cin >> x ;
+		string ip = line.parameters[0];
+		int port = std::stoi(line.parameters[1]);
  
  	 	client->connect(port, ip);
 

@@ -9,29 +9,29 @@ int main() {
  
     // lexer.parser_line(line);
      
-    // lexer.parser_line("openDataServer 5400 10");
+  //  lexer.parser_line("connect 127.0.0.1 5402");
     
-   lexer.parser_file("file.txt");
+  lexer.parser_file("file3.txt");
 
-    ((Connect*) lexer.interpreter.map["connect"])->Send("ls\r\n");
-    sleep(1);
-    ((Connect*) lexer.interpreter.map["connect"])->recieve();
-    sleep(1);
+  //   ((Connect*) lexer.interpreter.map["connect"])->Send("ls\r\n");
+  //   sleep(1);
+  //   ((Connect*) lexer.interpreter.map["connect"])->recieve();
+  //   sleep(1);
 
 
-    ((Connect*)(lexer.interpreter.map["connect"]))->Send("set controls/flight/rudder 1\r\n");
-    sleep(1);
-    ((Connect*)(lexer.interpreter.map["connect"]))->Send("set controls/flight/rudder -1\r\n");
-    sleep(1);
-    ((Connect*)(lexer.interpreter.map["connect"]))->Send("set controls/flight/rudder 1\r\n");
-    sleep(1);
-    ((Connect*)(lexer.interpreter.map["connect"]))->Send("set controls/flight/rudder -1\r\n");
-    sleep(1);
-    ((Connect*)(lexer.interpreter.map["connect"]))->Send("set controls/flight/rudder 1\r\n");
-    sleep(1);
-    ((Connect*)(lexer.interpreter.map["connect"]))->Send("set controls/flight/rudder -1\r\n");
-    sleep(1);
-    ((Connect*)(lexer.interpreter.map["connect"]))->Send("set controls/flight/rudder 1\r\n");
-
-}
+  //   ((Connect*)(lexer.interpreter.map["connect"]))->Send("set controls/flight/rudder 1\r\n");
+  //   sleep(1);
+  //   ((Connect*)(lexer.interpreter.map["connect"]))->Send("set controls/flight/rudder -1\r\n");
+  //   sleep(1);
+  //   ((Connect*)(lexer.interpreter.map["connect"]))->Send("set controls/flight/rudder 1\r\n");
+  //   sleep(1);
+  //   ((Connect*)(lexer.interpreter.map["connect"]))->Send("set controls/flight/rudder -1\r\n");
+  //   sleep(1);
+  //   ((Connect*)(lexer.interpreter.map["connect"]))->Send("set controls/flight/rudder 1\r\n");
+  //   sleep(1);
+  //   ((Connect*)(lexer.interpreter.map["connect"]))->Send("set controls/flight/rudder -1\r\n");
+  //   sleep(1);
+  //   ((Connect*)(lexer.interpreter.map["connect"]))->Send("set controls/flight/rudder 1\r\n");
+     return 0;
+  }
 
