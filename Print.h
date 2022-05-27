@@ -9,9 +9,18 @@ class Print : public Command
 
 public:
     Print(map<string, double> *symbolTable) : Command(), symbolTable(symbolTable) {}
-
+    
     int doCommand(Line &line)
     {
+        
+        
+        string str;
+        for (string x : line.parameters)
+        {
+            str += (x + " ");
+        }
+        cout << str << endl;
+
         if (line.parameters[0][0] == '\"')
         {
             cout << line.parameters[0] << endl;
@@ -21,6 +30,7 @@ public:
             string s = to_string((*symbolTable)[line.parameters[0]]);
             cout << s << endl;
         }
+        
         return 0;
     }
 };

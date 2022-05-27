@@ -108,6 +108,8 @@ public:
 
 		ofstream file;
 		file.open("out.txt");
+			ofstream file1;
+		file1.open("out1.txt");
 
 		while (1)
 		{
@@ -132,7 +134,7 @@ public:
 					{
 						//	cout << p.first  << " updating to :" << number << endl;
 						(*symbolTable)[p.first] = number;
-						file << p.first << "  updating to : " << (*symbolTable)[p.first] << endl;
+						file1 << p.first << "  updating to : " << (*symbolTable)[p.first] << endl;
 						break;
 					}
 				}

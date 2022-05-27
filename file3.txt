@@ -21,7 +21,7 @@ var aileron = bind "/controls/flight/aileron"
 var elevator = bind "/controls/flight/elevator"
 var alt = bind "/instrumentation/altimeter/indicated-altitude-ft"
 var rpm = bind "/engines/engine/rpm"
-sleep 20000
+sleep 10000
 print "let's start"
 sleep 1000
 magnetos = 3
@@ -42,10 +42,12 @@ sleep 5000
 print "let's fly"
 var h0 = heading
 print h0
-sleep 10000
+sleep 30000
 breaks = 0
 throttle = 1
 while alt < 1000 {
+	rudder = 1
+	rudder = 0
 	rudder = (h0 - heading)/20
 	aileron = (0 - roll) / 70
 	elevator = pitch/50

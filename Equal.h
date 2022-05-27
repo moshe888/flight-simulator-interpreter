@@ -2,7 +2,6 @@
 #include "Command.h"
 #include "client.h"
 
-
 using namespace std;
 
 // Client::Client(){}
@@ -12,8 +11,8 @@ class Equal : public Command
     map<string, double> *symbolTable;
     map<string, string> *names;
     Client *client;
-
-    
+    ofstream file;
+   
 
 public:
     Equal(map<string, double> *symbolTable, map<string, string> *names)
@@ -22,6 +21,4 @@ public:
     }
 
     int doCommand(Line &line);
-
 };
-     
