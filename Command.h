@@ -14,7 +14,7 @@ using namespace std;
 class Command
 {
 public:
-	virtual int doCommand(Line& line) = 0; //מצביע?
+	virtual int doCommand(const Line& line) = 0; //מצביע?
 	// virtual int doCommand(vector<string> parameters) = 0;
 	virtual ~Command() {}
 };

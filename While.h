@@ -1,20 +1,21 @@
 #pragma once
 
 #include "Command.h"
+#include "SymbolTable.h"
 
 class Interpreter;
 
 
 class While : public Command
 {
-    map<string, double> *symbolTable;
+    SymbolTable *symbolTable;
     Interpreter* interpreter;
 
 public:
-    While(map<string, double> *symbolTable,Interpreter* interpreter) 
+    While(SymbolTable *symbolTable,Interpreter* interpreter) 
     : Command(), symbolTable(symbolTable) ,interpreter(interpreter){}
 
-    int doCommand(Line &line);
+    int doCommand(const Line &line);
     /*{
 
         while (condition(line.parameters))

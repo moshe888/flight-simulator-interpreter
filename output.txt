@@ -1,0 +1,46 @@
+Symboltable:
+aileron = -0.000917
+airspeed = 89.6369
+alt = 1085.01
+autostart = 0
+brakeparking = 0
+breaks = 0
+elevator = 0.083604
+h0 = -9.33284
+heading = -9.33284
+magnetos = 3
+masteravionics = 1
+masterbat = 1
+masterlat = 1
+mixture = 0.949
+pitch = -0.349828
+primer = 0
+roll = 22.1724
+rpm = 2600.34
+rudder = 0
+starter = 0
+throttle = 1
+warp = 0
+
+Names:
+aileron = /controls/flight/aileron
+airspeed = /instrumentation/airspeed-indicator/indicated-speed-kt
+alt = /instrumentation/altimeter/indicated-altitude-ft
+autostart = /engines/active-engine/auto-start
+brakeparking = /sim/model/c172p/brake-parking
+breaks = /controls/flight/speedbrake
+elevator = /controls/flight/elevator
+heading = /instrumentation/heading-indicator/offset-deg
+magnetos = /controls/switches/magnetos
+masteravionics = /controls/switches/master-avionics
+masterbat = /controls/switches/master-bat
+masterlat = /controls/switches/master-alt
+mixture = /controls/engines/current-engine/mixture
+pitch = /instrumentation/attitude-indicator/internal-pitch-deg
+primer = /controls/engines/engine/primer
+roll = /instrumentation/attitude-indicator/indicated-roll-deg
+rpm = /engines/engine/rpm
+rudder = /controls/flight/rudder
+starter = /controls/switches/starter
+throttle = /controls/engines/current-engine/throttle
+warp = /sim/time/warp

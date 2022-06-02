@@ -23,7 +23,7 @@ var alt = bind "/instrumentation/altimeter/indicated-altitude-ft"
 var rpm = bind "/engines/engine/rpm"
 sleep 10000
 print "let's start"
-sleep 1000
+sleep 5000
 magnetos = 3
 throttle = 0.2
 mixture = 0.949
@@ -38,16 +38,20 @@ print "engine is warming..."
 print rpm
 rpm = 800
 print rpm
+while rpm < 750 {
+	print rpm
+	sleep 500
+}
+print rpm
 sleep 5000
 print "let's fly"
 var h0 = heading
 print h0
-sleep 30000
+sleep 10000
 breaks = 0
 throttle = 1
-while alt < 100 {
-	rudder = 1
-	rudder = 0
+sleep 10000
+while alt < 500 {
 	rudder = (h0 - heading)/20
 	aileron = (0 - roll) / 70
 	elevator = pitch/50

@@ -1,0 +1,2 @@
+send : set /controls/switches/magnetos 3.000000
+

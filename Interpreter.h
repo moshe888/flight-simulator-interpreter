@@ -10,6 +10,7 @@
 #include "OpenServerCommand.h"
 #include "Var.h"
 #include "Equal.h"
+#include "SymbolTable.h"
  //class While;
  #include "While.h"
 #include "Print.h"
@@ -21,7 +22,7 @@ class Interpreter
 {
 public:
 	std::map<string, Command *> map;
-	std::map<string, double> symbolTable;
+	 SymbolTable symbolTable;
 	std::map<string, string> names;
 
 public:
@@ -32,7 +33,7 @@ public:
 		map["var"] = new Var(&symbolTable, &names);
 		map["equal"] = new Equal(&symbolTable, &names);
 		map["while"] = new While(&symbolTable, this);
-		 map["print"] = new Print(&symbolTable);
+		map["print"] = new Print(&symbolTable);
 		map["sleep"] = new Sleep(&symbolTable);
 	}
 
@@ -45,16 +46,39 @@ public:
 		delete map["while"];
 		delete map["print"];
 		delete map["sleep"];
+
+		ofstream output;
+		output.open("output.txt");
+
+		output << "Symboltable:" << endl;
+		for (pair<string, float> symbol : symbolTable.getTable()) {
+			output << symbol.first << " = " << symbol.second << endl;
+		}
+
+		output << endl;
+
+		output << "Names:" << endl;
+		for (pair<string, string> name : names) {
+			output << name.first << " = " << name.second << endl;
+		}
+
+		output.close();
 	}
 
-	void perform(Line &line)
+	void perform(const Line &line)
 	{
-		if (map.find(line.name_command) == map.end())
-		{
-			std::cout << "Invalid command" << std::endl;
-			return;
+		try {
+			if (map.find(line.name_command) == map.end())
+			{
+				std::cout << "Invalid command" << std::endl;
+				return;
+			}
+			map[line.name_command]->doCommand(line);
 		}
-		map[line.name_command]->doCommand(line);
+		catch (const std::exception& e) {
+			std::cout << "EXCEPTION " << e.what() << std::endl;
+			exit(1);
+		}
 	}
 };
 

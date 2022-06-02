@@ -1,13 +1,13 @@
 #include "While.h"
 #include "Interpreter.h"
 
-int While::doCommand(Line &line)
+int While::doCommand(const Line &line)
 {
 
     while (condition(line.parameters))
     {
 
-        for (Line &it : line.list_command)
+        for (const Line &it : line.list_command)
         {
             interpreter->perform(it);
         }
@@ -32,22 +32,22 @@ bool While ::condition(vector<string> parameters)
     //     return 0;
     // }
         double a;
-        if ((*symbolTable).find(parameters[0]) != (*symbolTable).end()) {
-            a = (*symbolTable)[parameters[0]];
-        }
-        else {
-          //  cout << "stod " << parameters[0] << endl;
-            a = std::stod(parameters[0]);
-        }
+        // if (symbolTable->exists(parameters[0])) {
+            a = symbolTable->get(parameters[0]);
+        //}
+        // else {
+        //   //  cout << "stod " << parameters[0] << endl;
+        //     a = std::stod(parameters[0]);
+        // }
 
         double b;
-        if ((*symbolTable).find(parameters[2]) != (*symbolTable).end()) {
-            b = (*symbolTable)[parameters[2]];
-        }
-        else {
+        // if (symbolTable->exists(parameters[2])) {
+        //     b = symbolTable->get(parameters[2]);
+        // }
+        // else {
        //     cout << "stod " << parameters[2] << endl;
             b = std::stod(parameters[2]);
-        }
+        //}
 
     if (a < b)
     {

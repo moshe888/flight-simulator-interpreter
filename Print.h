@@ -5,30 +5,31 @@
 class Print : public Command
 {
 
-    map<string, double> *symbolTable;
+   SymbolTable *symbolTable;
 
 public:
-    Print(map<string, double> *symbolTable) : Command(), symbolTable(symbolTable) {}
+    Print(SymbolTable *symbolTable) : Command(), symbolTable(symbolTable) {}
     
-    int doCommand(Line &line)
+    int doCommand(const Line &line)
     {
-        
-        
-        string str;
-        for (string x : line.parameters)
-        {
-            str += (x + " ");
-        }
-        cout << str << endl;
-
         if (line.parameters[0][0] == '\"')
         {
-            cout << line.parameters[0] << endl;
+            string str;
+            for (string x : line.parameters)
+            {
+                str += (x + " ");
+            }
+            if (str[str.size() - 2] != '\"')     {
+                throw runtime_error("print command -wrong gershaim");
+            }
+
+            str = str.substr(1, str.size() - 3);
+            cout << str << endl;
         }
         else
         {
-            string s = to_string((*symbolTable)[line.parameters[0]]);
-            cout << s << endl;
+            string s = to_string(symbolTable->get(line.parameters[0]));
+            cout << line.parameters[0] << " = " << s << endl;
         }
         
         return 0;

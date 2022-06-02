@@ -21,7 +21,7 @@ var aileron = bind "/controls/flight/aileron"
 var elevator = bind "/controls/flight/elevator"
 var alt = bind "/instrumentation/altimeter/indicated-altitude-ft"
 var rpm = bind "/engines/engine/rpm"
-sleep 10000
+sleep 40000
 print "let's start"
 sleep 1000
 magnetos = 3
@@ -37,21 +37,27 @@ autostart = 1
 print "engine is warming..."
 print rpm
 rpm = 800
-print rpm
-sleep 5000
+while rpm < 750 {
+	print rpm
+}
 print "let's fly"
 var h0 = heading
 print h0
-sleep 30000
 breaks = 0
+sleep 10000
 throttle = 1
-while alt < 100 {
-	rudder = 1
-	rudder = 0
+while alt < 1000 {
 	rudder = (h0 - heading)/20
-	aileron = (0 - roll) / 70
+	aileron = - roll / 70
 	elevator = pitch/50
 	print alt
 	sleep 250
 }
 print "done"
+while alt < 3000 {
+	rudder = (h0 - heading)/20
+	aileron = - roll / 70
+	elevator = pitch/50
+	print alt
+	sleep 250
+}

@@ -1,6 +1,7 @@
 #pragma once
 #include "Command.h"
 #include "client.h"
+#include "SymbolTable.h"
 
 using namespace std;
 
@@ -8,17 +9,16 @@ using namespace std;
 class Equal : public Command
 {
 
-    map<string, double> *symbolTable;
+    SymbolTable  *symbolTable;
     map<string, string> *names;
     Client *client;
     ofstream file;
    
-
 public:
-    Equal(map<string, double> *symbolTable, map<string, string> *names)
+    Equal(SymbolTable *symbolTable, map<string, string> *names)
         : Command(), symbolTable(symbolTable), names(names)
     {
     }
 
-    int doCommand(Line &line);
+    int doCommand(const Line &line);
 };

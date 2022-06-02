@@ -10,6 +10,8 @@
 
 class Lexer
 {
+	Interpreter interpreter;
+
 	vector<string> split(string str, string delimiter)
 	{
 		vector<string> result;
@@ -38,8 +40,6 @@ class Lexer
 		return parameters;
 	}
 
-public:
-	Interpreter interpreter;
 
 	vector<Line> recursive(ifstream& ins) //למה מצביע?
 	{
@@ -49,7 +49,7 @@ public:
 		while (lexer(str)[0] != "}")
 		{
 			//	interpreter.numline ++;
-			std::cout << str<< "(while)" << std::endl;
+			//std::cout << str<< "(while)" << std::endl;
 
 			Line line = parser(str, ins);
 			innerCommands.push_back(line);
@@ -66,7 +66,7 @@ public:
 
 		line.parameters = lexer(str);
 		line.name_command = line.parameters[0];
-		line.str_line = str;
+		//line.str_line = str;
 
 		//	string command = parameters[0];
 
@@ -74,10 +74,7 @@ public:
 		{
 			line.name_command = "equal";
 			line.parameters.erase(line.parameters.begin() + 1); //בעיה עצובית
-			 
-			
 		}
-
 		else
 		{
 			line.parameters.erase(line.parameters.begin());
@@ -99,11 +96,12 @@ public:
 		//	interpreter.perform(details);  // map[command]->doCommand(parameters);
 	}
 
-	void parser_file(string File_path)
+public:
+	void parser_file(string file_path)
 	{
 		// interpreter.file_path = File_path;
 
-		ifstream ins(File_path);
+		ifstream ins(file_path);
 		string str;
 		while (std::getline(ins, str))
 		{

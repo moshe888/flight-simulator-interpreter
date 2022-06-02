@@ -1,6 +1,4 @@
-// Server side C/C++ program to demonstrate Socket programming
 #pragma once
-
 
 #include <unistd.h>
 #include <stdio.h>
@@ -9,9 +7,9 @@
 #include <netinet/in.h>
 #include <string.h>
 #include <iostream>
-//#define PORT 8080
 
 using namespace std;
+
 class Server{
 	int new_socket;
     static Server* instance;
@@ -38,10 +36,10 @@ public:
 
 		// Creating socket file descriptor
 		if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
-			std::cout << "socket failed" << std::endl;
-			exit(1);
-		}
-		
+			throw runtime_error("socket failed");
+			// std::cout << "socket failed" << std::endl;
+			// exit(1);
+		}		
 		
 		// Forcefully attaching socket to the port 8080
 		if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt))) {
@@ -83,9 +81,9 @@ public:
     }
 
     std::string Read(){
-		char buffer[1024] = {0};
+		char buffer[10024] = {0};
 	//	std::cout<<"**read **";
-		int valread = read(new_socket, buffer, 1024);
+		int valread = read(new_socket, buffer, 10024);
 		// printf("server read %d bytes\n", valread);
 		return buffer;
     }

@@ -4,16 +4,17 @@
  
 #include <time.h>
 #include <unistd.h>
+#include "SymbolTable.h"
 
  
 
 class Sleep : public Command
 {
-    map<string, double> *symbolTable;
+    SymbolTable *symbolTable;
 
 public:
-Sleep(map<string, double> *symbolTable) : Command() , symbolTable(symbolTable) {}
-    int doCommand(Line &line)
+Sleep(SymbolTable *symbolTable) : Command() , symbolTable(symbolTable) {}
+    int doCommand(const Line &line)
     {
          
         // double ms = unify(line.parameters,symbolTable);

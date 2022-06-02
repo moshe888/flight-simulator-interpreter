@@ -5,6 +5,7 @@
 #include <thread>
 #include <map>
 #include <iostream>
+#include "SymbolTable.h"
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
@@ -15,11 +16,12 @@ class OpenServerCommand : public Command
 	std::thread thread;
 	Server *server;
 	int seconds;
-	std::map<string, double> *symbolTable;
+	SymbolTable *symbolTable;
 	std::map<string, string> *names;
+	bool end;
 
 public:
-	OpenServerCommand(std::map<string, double> *symbolTable, std::map<string, string> *names) : Command(), symbolTable(symbolTable), names(names)
+	OpenServerCommand(SymbolTable *symbolTable, std::map<string, string> *names) : Command(), symbolTable(symbolTable), names(names), end(false)
 	{
 
 		server = Server::getInstance();
@@ -68,7 +70,7 @@ public:
 		return xmlVal;
 	}
 
-	int doCommand(Line &line)
+	int doCommand(const Line &line)
 	{
 		int port = std::stoi(line.parameters[0]);
 		seconds = std::stoi(line.parameters[1]);
@@ -100,7 +102,7 @@ public:
 		return result;
 	}
 
-	static void readwhile(int seconds, int port, std::map<string, double> *symbolTable,
+	static void readwhile(int seconds, int port, SymbolTable *symbolTable,
 						  std::map<string, string> *names, Server *server)
 	{
 
@@ -108,19 +110,22 @@ public:
 
 		ofstream file;
 		file.open("out.txt");
-			ofstream file1;
-		file1.open("out1.txt");
 
 		while (1)
 		{
+			// file.seekp(0, std::ios::beg);
 			file << "--------------\n";
 
 			std::string response = server->Read();
+			if (response == "") {
+				break;
+			}
 			file << response << "\n";
 			vector<string> spl = split(response, ",");
 			file << spl.size() << endl;
 			for (int i = 0; i < xml.size(); i++)
 			{
+
 				if (spl[i] == "" || spl[i] == " ")
 				{
 					continue;
@@ -133,13 +138,17 @@ public:
 					if (p.second == xml[i])
 					{
 						//	cout << p.first  << " updating to :" << number << endl;
-						(*symbolTable)[p.first] = number;
-						file1 << p.first << "  updating to : " << (*symbolTable)[p.first] << endl;
+					 
+						symbolTable->set(p.first, number);
+						//(*symbolTable)[p.first] = number;
+						file << p.first << "  updating to : " << symbolTable->get(p.first) << endl;
 						break;
 					}
 				}
 				// std::cout << "@ " << number << std::endl;
 			}
+
+			// file1.close();
 
 
 			sleep(1 / seconds);
@@ -150,6 +159,7 @@ public:
 
 	~OpenServerCommand()
 	{
+		end = true;
 		thread.join();
 	}
 };
