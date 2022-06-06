@@ -1,24 +1,15 @@
-#pragma once
+#include "Lexer.h"
 
-#include <iostream>
-#include <vector>
-#include "Interpreter.h"
-#include "Line.h"
- 
 
- using namespace std;
 
-class Lexer
-{
-	Interpreter interpreter;
 
-	vector<string> split(string str, string delimiter)
+	vector<string> Lexer :: split(string str, string delimiter)
 	{
 		vector<string> result;
 
 		size_t pos = 0;
 		string token;
-		while ((pos = str.find(delimiter)) != string::npos)
+		while ((pos = str.find(delimiter)) != string::npos)//?
 		{
 			token = str.substr(0, pos);
 			while (token[0] == ' ' || token[0] == '\t') {
@@ -34,14 +25,14 @@ class Lexer
 		return result;
 	}
 
-	vector<string> lexer(string line)
+	vector<string> Lexer ::  lexer(string line)
 	{
 		vector<string> parameters = split(line, " ");
 		return parameters;
 	}
 
 
-	vector<Line> recursive(ifstream& ins) //למה מצביע?
+	vector<Line> Lexer :: recursive(ifstream& ins)  
 	{
 		string str;
 		vector<Line> innerCommands;
@@ -60,7 +51,7 @@ class Lexer
 		return innerCommands;
 	}
 
-	Line parser(string str, ifstream& ins)
+	Line Lexer :: parser(string str, ifstream& ins)
 	{
 		Line line;
 
@@ -91,21 +82,17 @@ class Lexer
 
 		return line;
 
-		// CommandDetails* details = new CommandDetails(command, parameters);
-
-		//	interpreter.perform(details);  // map[command]->doCommand(parameters);
+	 
 	}
 
-public:
-	void parser_file(string file_path)
+	void Lexer :: parser_file(string file_path)
 	{
-		// interpreter.file_path = File_path;
-
+		 
 		ifstream ins(file_path);
 		string str;
 		while (std::getline(ins, str))
 		{
-			//	interpreter.numline ++;
+			 
 			std::cout << str << std::endl;
 
 			Line line = parser(str, ins);
@@ -113,4 +100,4 @@ public:
 
 		}
 	}
-};
+

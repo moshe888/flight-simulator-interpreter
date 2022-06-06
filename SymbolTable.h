@@ -24,11 +24,11 @@ public:
         return symbolTable[key];
     }
 
-    bool exists(string key)
-    {
-        lock_guard<mutex> lock(mtx);
-        return symbolTable.find(key) != symbolTable.end();
-    }
+    // bool exists(string key)
+    // {
+    //     lock_guard<mutex> lock(mtx);
+    //     return symbolTable.find(key) != symbolTable.end();
+    // }
 
     map<string, double> getTable()
     {

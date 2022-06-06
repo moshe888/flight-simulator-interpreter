@@ -73,6 +73,7 @@ public:
 				std::cout << "Invalid command" << std::endl;
 				return;
 			}
+			
 			map[line.name_command]->doCommand(line);
 		}
 		catch (const std::exception& e) {

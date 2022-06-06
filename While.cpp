@@ -15,47 +15,59 @@ int While::doCommand(const Line &line)
 
     return 0;
 
-    //  לרווץ בלולאה ממספר השורה ולהכניס לקובץ
-    //  ןאחר כך נפעילר פרסר בלולאה כל עוד התנא מתקיים
-    //  ןלמחוק את הקובץ
 }
 
 bool While ::condition(vector<string> parameters)
 {
 
-    // if (parameters[0] == "1")
-    // {
-    //     return 1;
-    // }
-    // else
-    // {
-    //     return 0;
-    // }
-        double a;
-        // if (symbolTable->exists(parameters[0])) {
-            a = symbolTable->get(parameters[0]);
-        //}
-        // else {
-        //   //  cout << "stod " << parameters[0] << endl;
-        //     a = std::stod(parameters[0]);
-        // }
+    double a;
+    double b;
 
-        double b;
-        // if (symbolTable->exists(parameters[2])) {
-        //     b = symbolTable->get(parameters[2]);
-        // }
-        // else {
-       //     cout << "stod " << parameters[2] << endl;
-            b = std::stod(parameters[2]);
-        //}
+    a = symbolTable->get(parameters[0]);
+    b = stod(parameters[2]);
 
     if (a < b)
-    {
-
         return true;
-    }
     else
-    {
         return false;
-    }
 }
+
+// bool While ::condition(vector<string> parameters)
+// {
+
+//     // if (parameters[0] == "1")
+//     // {
+//     //     return 1;
+//     // }
+//     // else
+//     // {
+//     //     return 0;
+//     // }
+//     double a;
+//     // if (symbolTable->exists(parameters[0])) {
+//     a = symbolTable->get(parameters[0]);
+//     //}
+//     // else {
+//     //   //  cout << "stod " << parameters[0] << endl;
+//     //     a = std::stod(parameters[0]);
+//     // }
+
+//     double b;
+//     // if (symbolTable->exists(parameters[2])) {
+//     //     b = symbolTable->get(parameters[2]);
+//     // }
+//     // else {
+//     //     cout << "stod " << parameters[2] << endl;
+//     b = std::stod(parameters[2]);
+//     //}
+
+//     if (a < b)
+//     {
+
+//         return true;
+//     }
+//     else
+//     {
+//         return false;
+//     }
+// }

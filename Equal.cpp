@@ -5,8 +5,10 @@
 int Equal::doCommand(const Line &line)
 {
     file.open("out2.txt");
+
     string var = (*names)[line.parameters[0]];
     vector<string> params = line.parameters;
+    
     params.erase(params.begin());
     double val = exp(params, symbolTable);
 

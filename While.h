@@ -8,7 +8,7 @@ class Interpreter;
 
 class While : public Command
 {
-    SymbolTable *symbolTable;
+    SymbolTable* symbolTable;
     Interpreter* interpreter;
 
 public:
@@ -16,21 +16,7 @@ public:
     : Command(), symbolTable(symbolTable) ,interpreter(interpreter){}
 
     int doCommand(const Line &line);
-    /*{
-
-        while (condition(line.parameters))
-        {
-
-            for (Line &it : line.list_command)
-            {
-                interpreter->perform(it);
-            }
-        }
-
-        //  לרווץ בלולאה ממספר השורה ולהכניס לקובץ
-        //  ןאחר כך נפעילר פרסר בלולאה כל עוד התנא מתקיים
-        //  ןלמחוק את הקובץ
-    }*/
+  
     bool condition(vector<string> parameters);
  
 };
