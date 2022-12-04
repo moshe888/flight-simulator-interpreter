@@ -11,7 +11,7 @@ int main() {
      
   //  lexer.parser_line("connect 127.0.0.1 5402");
     
-  interpreter.parser_file("file77.txt");
+  interpreter.parser_file("file6.txt");
 
   //   ((Connect*) lexer.interpreter.map["connect"])->Send("ls\r\n");
   //   sleep(1);

@@ -1,9 +1,9 @@
-#include "Lexer.h"
+#include "Parser.h"
 
 
 
 
-	vector<string> Lexer :: split(string str, string delimiter)
+	vector<string> Parser :: split(string str, string delimiter)
 	{
 		vector<string> result;
 
@@ -25,7 +25,7 @@
 		return result;
 	}
 
-	vector<string> Lexer ::  lexer(string line)
+	vector<string> Parser ::  lexer(string line)
 	{
 		while (line[0] == ' ' || line[0] == '\t' || line[0] == '\r' || line[0] == '\n') {
 			line.erase(0, 1);
@@ -35,7 +35,7 @@
 	}
 
 
-	vector<Line> Lexer :: recursive(ifstream& ins)  
+	vector<Line> Parser :: recursive(ifstream& ins)  
 	{
 		string str;
 		vector<Line> innerCommands;
@@ -54,7 +54,7 @@
 		return innerCommands;
 	}
 
-	Line Lexer :: parser(string str, ifstream& ins)
+	Line Parser :: parser(string str, ifstream& ins)
 	{
 		Line line;
 
@@ -62,8 +62,7 @@
 		line.name_command = line.parameters[0];
 		//line.str_line = str;
 
-		//	string command = parameters[0];
-
+ 
 		if (line.parameters[1] == "=")
 		{
 			line.name_command = "equal";
@@ -78,8 +77,7 @@
 		{
 
  			line.parameters.erase(line.parameters.end() - 1);
-			//	line.interpreter = &interpreter;
-			line.list_command = recursive(ins);
+ 			line.list_command = recursive(ins);
 		}
 
 		return line;
@@ -87,7 +85,7 @@
 	 
 	}
 
-	// void Lexer :: parser_file(string file_path)
+	// void Parser :: parser_file(string file_path)
 	// {
 		 
 	// 	ifstream ins(file_path);

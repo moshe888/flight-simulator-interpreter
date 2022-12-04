@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class Lexer
+class Parser
 {
 	// Interpreter interpreter;
 

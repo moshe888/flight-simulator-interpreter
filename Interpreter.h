@@ -11,17 +11,15 @@
 #include "Var.h"
 #include "Equal.h"
 #include "SymbolTable.h"
- //class While;
- #include "While.h"
+  #include "While.h"
 #include "Print.h"
 #include "Sleep.h"
-#include "Lexer.h"
+#include "Parser.h"
 
-// class While;
-
+ 
 class Interpreter
 {
-	Lexer lexer;
+	Parser parser;
 public:
 	std::map<string, Command *> map;
 	 SymbolTable symbolTable;
@@ -93,7 +91,7 @@ public:
 			 
 			std::cout << str << std::endl;
 
-			Line line = lexer.parser(str, ins);
+			Line line = parser.parser(str, ins);
 			 perform(line);
 
 		}
