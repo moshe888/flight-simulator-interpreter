@@ -15,11 +15,13 @@
  #include "While.h"
 #include "Print.h"
 #include "Sleep.h"
+#include "Lexer.h"
 
 // class While;
 
 class Interpreter
 {
+	Lexer lexer;
 public:
 	std::map<string, Command *> map;
 	 SymbolTable symbolTable;
@@ -79,6 +81,21 @@ public:
 		catch (const std::exception& e) {
 			std::cout << "EXCEPTION " << e.what() << std::endl;
 			exit(1);
+		}
+	}
+	void parser_file(string file_path)
+	{
+		 
+		ifstream ins(file_path);
+		string str;
+		while (std::getline(ins, str))
+		{
+			 
+			std::cout << str << std::endl;
+
+			Line line = lexer.parser(str, ins);
+			 perform(line);
+
 		}
 	}
 };

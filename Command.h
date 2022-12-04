@@ -8,13 +8,12 @@
 
 using namespace std;
 
-// using std::string;
-// using std::vector;
+ 
 
 class Command
 {
 public:
-	virtual int doCommand(const Line& line) = 0; //מצביע?
-	// virtual int doCommand(vector<string> parameters) = 0;
+	virtual int doCommand(const Line& line) = 0;  
+ 
 	virtual ~Command() {}
 };

@@ -1,5 +1,5 @@
-#pragma once
-
+ 
+ 
 #include "Command.h"
 #include <string>
 #include <thread>
@@ -72,28 +72,13 @@
 		return 0;
 	}
 
-	  vector<string> OpenServerCommand :: split(string str, string delimiter)
-	{
-		vector<string> result;
-
-		size_t pos = 0;
-		string token;
-		while ((pos = str.find(delimiter)) != string::npos)
-		{
-			token = str.substr(0, pos);
-			result.push_back(token);
-			str.erase(0, pos + delimiter.length());
-		}
-		result.push_back(str);
-
-		return result;
-	}
+	
 
 	  void OpenServerCommand :: readwhile(int seconds, int port, SymbolTable *symbolTable,
 						  std::map<string, string> *names, Server *server)
 	{
 
-		vector<string> xml = initXmlTable(); //למה בפונקציה?
+		vector<string> xml = initXmlTable();  
 
 		ofstream file;
 		file.open("out.txt");
@@ -104,7 +89,9 @@
 			file << "--------------\n";
 
 			std::string response = server->Read();
+ 
 			if (response == "") {
+				cout << "response == """ + response << endl;
 				break;
 			}
 			file << response << "\n";
@@ -122,12 +109,12 @@
 				// std::cout << "a3" << std::endl;
 				for (const std::pair<string, string> &p : *names)
 				{
-					if (p.second == xml[i])
+					if (p.second == xml[i])//בודקים האם עשינו כריכה למשתנה הנתון בxml 
 			
 					{
 						//	cout << p.first  << " updating to :" << number << endl;
 					 
-						symbolTable->set(p.first, number);
+						symbolTable->set(p.first, number);//אז מעדכנים מקומי את הערך 
 						//(*symbolTable)[p.first] = number;
 						file << p.first << "  updating to : " << symbolTable->get(p.first) << endl;
 						break;
@@ -142,6 +129,23 @@
 		}
 		
 		file.close();
+	}
+
+	  vector<string> OpenServerCommand :: split(string str, string delimiter)
+	{
+		vector<string> result;
+
+		size_t pos = 0;
+		string token;
+		while ((pos = str.find(delimiter)) != string::npos)
+		{
+			token = str.substr(0, pos);
+			result.push_back(token);
+			str.erase(0, pos + delimiter.length());
+		}
+		result.push_back(str);
+
+		return result;
 	}
 
  

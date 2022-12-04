@@ -9,7 +9,8 @@ class Interpreter;
 class While : public Command
 {
     SymbolTable* symbolTable;
-    Interpreter* interpreter;
+    Interpreter* interpreter;//למה לא רפרנסס?
+    
 
 public:
     While(SymbolTable *symbolTable,Interpreter* interpreter) 

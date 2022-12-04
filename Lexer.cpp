@@ -27,6 +27,9 @@
 
 	vector<string> Lexer ::  lexer(string line)
 	{
+		while (line[0] == ' ' || line[0] == '\t' || line[0] == '\r' || line[0] == '\n') {
+			line.erase(0, 1);
+		}
 		vector<string> parameters = split(line, " ");
 		return parameters;
 	}
@@ -64,7 +67,7 @@
 		if (line.parameters[1] == "=")
 		{
 			line.name_command = "equal";
-			line.parameters.erase(line.parameters.begin() + 1); //בעיה עצובית
+			line.parameters.erase(line.parameters.begin() + 1);  
 		}
 		else
 		{
@@ -74,8 +77,7 @@
 		if (line.name_command == "while")
 		{
 
-			// while(כל עוד התנאי מתקיים
-			line.parameters.erase(line.parameters.end() - 1);
+ 			line.parameters.erase(line.parameters.end() - 1);
 			//	line.interpreter = &interpreter;
 			line.list_command = recursive(ins);
 		}
@@ -85,19 +87,19 @@
 	 
 	}
 
-	void Lexer :: parser_file(string file_path)
-	{
+	// void Lexer :: parser_file(string file_path)
+	// {
 		 
-		ifstream ins(file_path);
-		string str;
-		while (std::getline(ins, str))
-		{
+	// 	ifstream ins(file_path);
+	// 	string str;
+	// 	while (std::getline(ins, str))
+	// 	{
 			 
-			std::cout << str << std::endl;
+	// 		std::cout << str << std::endl;
 
-			Line line = parser(str, ins);
-			interpreter.perform(line);
+	// 		Line line = parser(str, ins);
+	// 		// interpreter.perform(line);
 
-		}
-	}
+	// 	}
+	// }
 

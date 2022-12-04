@@ -1,7 +1,7 @@
-#include "Lexer.h"
+#include "Interpreter.h"
 
 int main() {
-    Lexer lexer;
+    Interpreter interpreter;
     // /*string line;
     // std::cout << "  insert line: ";
     // std::getline(std::cin , line);  
@@ -11,7 +11,7 @@ int main() {
      
   //  lexer.parser_line("connect 127.0.0.1 5402");
     
-  lexer.parser_file("file77.txt");
+  interpreter.parser_file("file77.txt");
 
   //   ((Connect*) lexer.interpreter.map["connect"])->Send("ls\r\n");
   //   sleep(1);

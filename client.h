@@ -10,7 +10,7 @@
 
 class Client
 {
-    static Client *instance;
+    static Client *instance;// 
 
     Client()
     {
