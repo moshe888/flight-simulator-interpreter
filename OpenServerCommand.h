@@ -16,6 +16,7 @@ class OpenServerCommand : public Command
 {
 	std::thread thread;
 	Server* server;
+	Tools tools;
 	
 	SymbolTable* symbol_table;
 	bool end;
