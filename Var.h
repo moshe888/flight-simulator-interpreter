@@ -5,12 +5,10 @@
 #include "SymbolTable.h"
 
 class Var : public Command {
-    SymbolTable* symbolTable;
-    map<string, string>* names;
+    SymbolTable* symbol_table;
 
 public:
-    Var( SymbolTable* symbolTable, map<string, string>* names) :
-        Command(), symbolTable(symbolTable), names(names)
+    Var() : Command(), symbol_table(SymbolTable::get_instance())
     {}
 
     int doCommand(const Line& line); 

@@ -19,7 +19,7 @@ class Server{
 
 public:
      static Server* getInstance() {
-        if (instance == 0) {
+        if (!instance ) {
             instance = new Server();
         }
         return instance;

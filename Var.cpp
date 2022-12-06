@@ -11,13 +11,14 @@ int Var::doCommand(const Line &line)
 
     if (line.parameters[2] == "bind")
     {
-        (*names)[line.parameters[0]] = line.parameters[3].substr(1, line.parameters[3].size() - 2);
-        symbolTable->set(line.parameters[0], 0);
+        symbol_table->set_name(line.parameters[0],
+            line.parameters[3].substr(1, line.parameters[3].size() - 2));
+        symbol_table->set(line.parameters[0], 0);
     }
     else
     {
-        double d = symbolTable->get(line.parameters[2]);
-        symbolTable->set(line.parameters[0], d);
+        double d = symbol_table->get(line.parameters[2]);
+        symbol_table->set(line.parameters[0], d);
     }
 
     return 0;

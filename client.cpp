@@ -1,7 +1,7 @@
 #include "client.h"
 
 
-Client* Client::instance = NULL;
+Client* Client::instance = nullptr;
 
     
     int Client :: connect(int port, std::string ip){

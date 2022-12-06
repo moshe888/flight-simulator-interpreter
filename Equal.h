@@ -2,23 +2,21 @@
 #include "Command.h"
 #include "client.h"
 #include "SymbolTable.h"
+#include "Exp.h"
 
 using namespace std;
 
-// Client::Client(){}
 class Equal : public Command
 {
 
-    SymbolTable  *symbolTable;
-    map<string, string> *names;
+    SymbolTable  *symbol_table ;
     Client *client;
     ofstream file;
+    Exp exp;
    
 public:
-    Equal(SymbolTable *symbolTable, map<string, string> *names)
-        : Command(), symbolTable(symbolTable), names(names)
-    {
-    }
+    Equal() : Command(), symbol_table(SymbolTable::get_instance())
+    {}
 
     int doCommand(const Line &line);
 };

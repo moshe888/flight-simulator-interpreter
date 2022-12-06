@@ -8,16 +8,15 @@ class Interpreter;
 
 class While : public Command
 {
-    SymbolTable* symbolTable;
-    Interpreter* interpreter;//למה לא רפרנסס?
+    SymbolTable* symbol_table;
+    Interpreter& interpreter;
     
-
 public:
-    While(SymbolTable *symbolTable,Interpreter* interpreter) 
-    : Command(), symbolTable(symbolTable) ,interpreter(interpreter){}
+    While(Interpreter& interpreter) : 
+        Command(), symbol_table(SymbolTable::get_instance()), interpreter(interpreter)
+    {}
 
     int doCommand(const Line &line);
   
     bool condition(vector<string> parameters);
- 
 };

@@ -2,36 +2,35 @@
 
 #include <iostream>
 #include <mutex>
+#include <map>
 
-using namespace std;
+using std::map;
+using std::string;
+using std::mutex;
 
 class SymbolTable
 {
 private:
-    map<string, double> symbolTable;
+    std::map<string, string> names;
+    map<string, double> symbol_table;
     mutex mtx;
 
+    SymbolTable() {}
+
+    static SymbolTable* instance;
+
 public:
-    void set(string key, double d)
-    {
-        lock_guard<mutex> lock(mtx);
-        symbolTable[key] = d;
-    }
+    static SymbolTable* get_instance();
+    
+    void set(const string& key, double d);
+ 
+    double get(const string& key);
+   
+    bool exists(string key);
 
-    double get(string key)
-    {
-        lock_guard<mutex> lock(mtx);
-        return symbolTable[key];
-    }
+    map<string, double> get_table() const;
 
-    // bool exists(string key)
-    // {
-    //     lock_guard<mutex> lock(mtx);
-    //     return symbolTable.find(key) != symbolTable.end();
-    // }
+    map<string, string> get_names() const;
 
-    map<string, double> getTable()
-    {
-        return symbolTable;
-    }
+    void set_name(string key, string value);
 };

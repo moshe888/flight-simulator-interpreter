@@ -5,10 +5,11 @@
 class Print : public Command
 {
 
-   SymbolTable *symbolTable;
+   SymbolTable *symbol_table;
 
 public:
-    Print(SymbolTable *symbolTable) : Command(), symbolTable(symbolTable) {}
+    Print() : Command(), symbol_table(SymbolTable::get_instance())
+    {}
     
     int doCommand(const Line &line)
     {
@@ -28,7 +29,7 @@ public:
         }
         else
         {
-            string s = to_string(symbolTable->get(line.parameters[0]));
+            string s = to_string(symbol_table->get(line.parameters[0]));
             cout << line.parameters[0] << " = " << s << endl;
         }
         

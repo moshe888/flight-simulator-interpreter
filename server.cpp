@@ -1,7 +1,7 @@
 
 #include "server.h"
 
-Server* Server::instance = NULL;
+Server* Server::instance = nullptr;
  
 	void Server :: activate(int port) {
 		std::cout<< " active"<<std::endl;

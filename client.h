@@ -24,7 +24,7 @@ public:
 
     static Client *getInstance()
     {
-        if (instance == NULL)
+        if (!instance)
         {
             instance = new Client();
         }

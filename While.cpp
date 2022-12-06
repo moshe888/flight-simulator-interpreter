@@ -3,27 +3,23 @@
 
 int While::doCommand(const Line &line)
 {
-
     while (condition(line.parameters))
     {
-
         for (const Line &it : line.list_command)
         {
-            interpreter->perform(it);
+            interpreter.perform(it);
         }
     }
 
     return 0;
-
 }
 
-bool While ::condition(vector<string> parameters)
+bool While::condition(vector<string> parameters)
 {
-
     double a;
     double b;
 
-    a = symbolTable->get(parameters[0]);
+    a = symbol_table->get(parameters[0]);
     b = stod(parameters[2]);
 
     if (a < b)
@@ -44,8 +40,8 @@ bool While ::condition(vector<string> parameters)
 //     //     return 0;
 //     // }
 //     double a;
-//     // if (symbolTable->exists(parameters[0])) {
-//     a = symbolTable->get(parameters[0]);
+//     // if (symbol_table->exists(parameters[0])) {
+//     a = symbol_table->get(parameters[0]);
 //     //}
 //     // else {
 //     //   //  cout << "stod " << parameters[0] << endl;
@@ -53,8 +49,8 @@ bool While ::condition(vector<string> parameters)
 //     // }
 
 //     double b;
-//     // if (symbolTable->exists(parameters[2])) {
-//     //     b = symbolTable->get(parameters[2]);
+//     // if (symbol_table->exists(parameters[2])) {
+//     //     b = symbol_table->get(parameters[2]);
 //     // }
 //     // else {
 //     //     cout << "stod " << parameters[2] << endl;

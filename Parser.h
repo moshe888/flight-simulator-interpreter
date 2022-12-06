@@ -2,22 +2,22 @@
 
 #include <iostream>
 #include <vector>
-// #include "Interpreter.h"
+#include "Tools.h"
 #include "Line.h"
 
-using namespace std;
+using std::string;
+using std::vector;
+using std::ifstream;
 
 class Parser
 {
-	// Interpreter interpreter;
-
-	vector<string> split(string str, string delimiter);
+	// vector<string> split(string str, const string& delimiter);
+	Tools tools;
 
 	vector<string> lexer(string line);
 
-	vector<Line> recursive(ifstream &ins);//for while
+	vector<Line> create_inner_lines(ifstream &ins);
 
 public:
-	Line parser(string str, ifstream &ins);
-	// void parser_file(string file_path);
+	Line create_line(const string& str, ifstream &ins);
 };

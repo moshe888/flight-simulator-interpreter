@@ -8,13 +8,14 @@
 
 class Sleep : public Command
 {
-    SymbolTable *symbolTable;
+    SymbolTable *symbol_table;
 
 public:
-    Sleep(SymbolTable *symbolTable) : Command(), symbolTable(symbolTable) {}
+    Sleep() : Command(), symbol_table(SymbolTable::get_instance())
+    {}
+
     int doCommand(const Line &line)
     {
-
         double ms = stod(line.parameters[0]) / 1000;
         sleep(ms);
         cout << "sleep " << ms << endl;
