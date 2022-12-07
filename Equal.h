@@ -12,7 +12,7 @@ class Equal : public Command
     SymbolTable  *symbol_table ;
     Client *client;
     ofstream file;
-    Exp exp;
+    Expressions exp;
    
 public:
     Equal() : Command(), symbol_table(SymbolTable::get_instance())

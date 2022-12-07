@@ -5,7 +5,7 @@
 vector<string> Parser::lexer(string line)
 {
 	 
-	vector<string> parameters = tools.split(line, " ");
+	vector<string> parameters = Tools::split(line, " ");
 	return parameters;
 }
 

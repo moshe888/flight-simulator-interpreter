@@ -51,7 +51,7 @@ void Interpreter::perform(const Line &line)
         commands[line.name_command]->doCommand(line);
     }
     catch (const std::exception& e) {
-        std::cout << "EXCEPTION " << e.what() << std::endl;
+        std::cout << "EXCEPTION " << e.what() << std::endl;//?
         exit(1);
     }
 }

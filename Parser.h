@@ -12,9 +12,9 @@ using std::ifstream;
 class Parser
 {
 	// vector<string> split(string str, const string& delimiter);
-	Tools tools;
+	// Tools tools;
 
-	vector<string> lexer(string line);
+	vector<string> lexer(string line);//?const
 
 	vector<Line> create_inner_lines(ifstream &ins);
 

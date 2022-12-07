@@ -23,7 +23,7 @@ void SymbolTable::set(const string& key, double d)
 double SymbolTable::get(const string& key)
 {
     lock_guard<mutex> lock(mtx);
-    return symbol_table[key];
+    return symbol_table[key];//if not faund?
 }
 
 bool SymbolTable::exists(string key)

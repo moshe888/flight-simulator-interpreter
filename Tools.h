@@ -9,7 +9,7 @@ using std::vector;
 class Tools
 {
  public:
- vector<string>  split(string str, const string& delimiter)
+ static vector<string>  split(string str, const string& delimiter)
 {
 	vector<string> result;
 

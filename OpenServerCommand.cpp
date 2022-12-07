@@ -10,7 +10,7 @@
 #include "server.h"
 #include "OpenServerCommand.h"
 
-Tools tools;
+ 
 
 vector<string> OpenServerCommand::initXmlTable()
 {
@@ -86,7 +86,8 @@ void OpenServerCommand::read_from_server(int seconds, int port, SymbolTable *sym
 			break;
 		}
 		file << response << "\n";
-		vector<string> spl = tools.split(response, ",");
+		vector<string> spl = Tools::split(response, ",");
+		 
 		file << spl.size() << endl;
 		for (int i = 0; i < xml.size(); i++)
 		{
@@ -99,7 +100,7 @@ void OpenServerCommand::read_from_server(int seconds, int port, SymbolTable *sym
 			{
 				if (p.second == xml[i])
 				{
-					//	cout << p.first  << " updating to :" << number << endl;
+						// cout << p.first  << " updating to :" << number << endl;
 					
 					symbol_table->set(p.first, number);
 					file << p.first << "  updating to : " << symbol_table->get(p.first) << endl;
@@ -114,19 +115,4 @@ void OpenServerCommand::read_from_server(int seconds, int port, SymbolTable *sym
 	file.close();
 }
 
-// vector<string> OpenServerCommand::split(string str, string delimiter)
-// {
-// 	vector<string> result;
-
-// 	size_t pos = 0;
-// 	string token;
-// 	while ((pos = str.find(delimiter)) != string::npos)
-// 	{
-// 		token = str.substr(0, pos);
-// 		result.push_back(token);
-// 		str.erase(0, pos + delimiter.length());
-// 	}
-// 	result.push_back(str);
-
-// 	return result;
-// }
+ 

@@ -8,7 +8,7 @@ int Equal::doCommand(const Line &line)
     vector<string> params = line.parameters;
     
     params.erase(params.begin());
-    double val = exp.string_for_double(params, symbol_table);
+    double val = exp.expression_to_value(params, symbol_table);
 
    
         string temp = string("set ") + var + " " + to_string(val) + "\r\n";

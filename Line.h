@@ -22,5 +22,5 @@ public:
     string name_command;
     vector<string> parameters;
     
-    vector<Line> list_command;
+    vector<Line> list_command; //עדיף כמחלקה בפני עצמה 
 };

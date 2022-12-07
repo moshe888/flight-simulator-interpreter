@@ -4,11 +4,11 @@
 #include "ShuntingYard.h"
 
 using namespace std;
-class Exp{
+class Expressions{
 
 public:
 
-double string_for_double(vector<string> parameters, SymbolTable *symbol_table)
+double expression_to_value(vector<string> parameters, SymbolTable *symbol_table)
 {
     
     string str;
@@ -32,7 +32,7 @@ double string_for_double(vector<string> parameters, SymbolTable *symbol_table)
         }
         
         string var;
-        var.push_back(str[i]);
+        var.push_back(str[i]);//?
         i++;
         while ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= '0' && str[i] <= '9') || str[i] == '_')
         {
@@ -46,7 +46,7 @@ double string_for_double(vector<string> parameters, SymbolTable *symbol_table)
         result += var;
     }
 
-    for (int i = 0; i < result.size() - 1; i++)
+    for (int i = 0; i < result.size() - 1; i++)//adge cases
     {
         if (result[i] == '-' && result[i + 1] == '-')
         {
