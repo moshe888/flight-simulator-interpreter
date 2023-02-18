@@ -11,8 +11,8 @@ This project contains
 
 -Command to use "command pattern" to execute the correct command and more.
 
-****Installation****
-/n
+***Installation***
+
 Install the Flightrear simulator https://www.flightgear.org/
 
 -Copy the generic_small.xml to path /usr/share/games/flightgear/Protocol/
