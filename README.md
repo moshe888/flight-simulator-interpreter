@@ -10,3 +10,11 @@ This project contains
 -Client to send commands to control the simulator and Server to get flight data.
 
 -Command to use "command pattern" to execute the correct command and more.
+
+****Installation****
+\n
+Install the Flightrear simulator https://www.flightgear.org/
+
+-Copy the generic_small.xml to path /usr/share/games/flightgear/Protocol/
+
+-Run make in yuor Terminal, and run ./main File-path-(flight instructions)
