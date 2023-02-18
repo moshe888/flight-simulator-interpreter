@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include <vector>
-#include "Tools.h"
-#include "Line.h"
+#include "Tools.cpp"
+#include "Line.cpp"
 
 using std::string;
 using std::vector;

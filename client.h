@@ -1,12 +1,17 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 #include <stdio.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <string.h>
-#include "Command.h"
+// #include "Command.h"
+ 
+ 
+
+using namespace std;
 
 class Client
 {

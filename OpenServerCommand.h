@@ -10,7 +10,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include "server.h"
-#include "Tools.h"
+#include "Tools.cpp"
 
 class OpenServerCommand : public Command
 {

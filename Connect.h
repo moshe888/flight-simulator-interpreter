@@ -1,6 +1,7 @@
 #pragma once
 
 #include "client.h"
+#include "Command.h"
 
 class Connect : public Command {
 	
@@ -14,18 +15,7 @@ public:
 		client = Client::getInstance();
 	}
 
-	int doCommand(const Line& line) {
-        cout << "The client ready? enter 1" << endl;
-		int x;
-		cin >> x;
-
-		string ip = line.parameters[0];
-		int port = std::stoi(line.parameters[1]);
- 
- 	 	client->connect(port, ip);
-
-		return 0;
-	}
+	int doCommand(const Line& line) ;
 
     // void Send(std::string message) {
     //     client->Send(message);

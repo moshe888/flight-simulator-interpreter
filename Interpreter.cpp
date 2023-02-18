@@ -59,6 +59,10 @@ void Interpreter::perform(const Line &line)
 void Interpreter::parser_file(const string& file_path)
 {
     ifstream ins(file_path);
+    if (ins.fail()){
+        cout << "File does not exist"<<endl;
+         
+    }
     string str;
     while (std::getline(ins, str))
     {
@@ -67,4 +71,5 @@ void Interpreter::parser_file(const string& file_path)
         Line line = create_line.create_line(str, ins);
         perform(line);
     }
+     
 }
