@@ -9,8 +9,8 @@ int main(int argc, char **argv)
     }
     Interpreter interpreter;
  
-    
-  interpreter.parser_file(argv[1]);
+    // Call the parser_file method of the Interpreter object to parse the input file
+    interpreter.parser_file(argv[1]);
 
   
 

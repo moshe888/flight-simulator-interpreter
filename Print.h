@@ -10,7 +10,7 @@ class Print : public Command
 public:
     Print() : Command(), symbol_table(SymbolTable::get_instance())
     {}
-    
+    // Implement doCommand function to handle print command
     int doCommand(const Line &line)
     {
         if (line.parameters[0][0] == '\"')

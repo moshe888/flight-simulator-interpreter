@@ -33,23 +33,7 @@ masteravionics = 1
 brakeparking = 0
 primer = 3
 starter = 1
-autostart = 1
-print "engine is warming..."
-print rpm
-rpm = 800
-while rpm < 750 {
-	print rpm
-}
-print "let's fly"
-var h0 = heading
-print h0
-breaks = 0
-sleep 10000
-throttle = 1
-while alt < 100 {
-	rudder = (h0 - heading)/20
-	aileron = - roll / 70
-	elevator = pitch/50
-	print alt
-	sleep 250
-}
+autostart = 4+2
+var h0 = heading+starter
+primer = 3+9
+primer = 3+starter

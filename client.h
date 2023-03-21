@@ -7,26 +7,20 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <string.h>
-// #include "Command.h"
- 
- 
 
 using namespace std;
 
 class Client
 {
-    static Client *instance;// 
+    static Client *instance;// pointer to the only instance of Client class
 
-    Client()
-    {
-    }
+    Client(){}
 
 public:
     int sock;
     struct sockaddr_in serv_addr;
-    // int port;
-    // std::string ip;
 
+    // Singleton pattern - gets the only instance of Client class
     static Client *getInstance()
     {
         if (!instance)
@@ -36,9 +30,12 @@ public:
         return instance;
     }
 
+    // connects to a server with a given IP and port
     int connect(int port, std::string ip);
 
+    // sends a message to the connected server
     void Send(std::string message);
 
+    // receives a message from the connected server
     std::string recieve();
 };

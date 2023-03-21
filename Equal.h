@@ -17,6 +17,6 @@ class Equal : public Command
 public:
     Equal() : Command(), symbol_table(SymbolTable::get_instance())
     {}
-
+   // Implement doCommand function to handle Equal command
     int doCommand(const Line &line);
 };

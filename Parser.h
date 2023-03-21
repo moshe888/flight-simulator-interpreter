@@ -11,13 +11,12 @@ using std::ifstream;
 
 class Parser
 {
-	// vector<string> split(string str, const string& delimiter);
-	// Tools tools;
+	vector<string> lexer(string line); // Split a line  
 
-	vector<string> lexer(string line);//?const
-
-	vector<Line> create_inner_lines(ifstream &ins);
+	vector<Line> create_inner_lines(ifstream &ins); // Parse a block of code enclosed in {} (for while)
 
 public:
+	// Parse a single line of code and return the parsed `Line` object
 	Line create_line(const string& str, ifstream &ins);
 };
+

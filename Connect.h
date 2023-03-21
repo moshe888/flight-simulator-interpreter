@@ -5,26 +5,16 @@
 
 class Connect : public Command {
 	
-//  int port;
-//  std::string ip;
+ 	// The connect command will use this object to communicate with the simulator.
 	Client* client;
-	//Client* nnn = new Client();
 
 public:
+	// Constructor to initialize the client pointer with the singleton instance of Client.
 	Connect() {
 		client = Client::getInstance();
 	}
 
-	int doCommand(const Line& line) ;
+	// This method connects to the simulator using the IP and port given in the line parameters.
+	int doCommand(const Line& line);
 
-    // void Send(std::string message) {
-    //     client->Send(message);
- 		 
- 	// }
-
-	// std::string recieve() {
-	// 	return client->recieve();
-	// }
-
-    
-};
+}; 

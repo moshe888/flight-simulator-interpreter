@@ -19,7 +19,7 @@ Server* Server::instance = nullptr;
 			// exit(1);
 		}		
 		
-		// Forcefully attaching socket to the port 8080
+		// Forcefully attaching socket to the port 
 		if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt))) {
 			std::cout << "setsockopt failed " << setsockopt << std::endl;
 			exit(1);
@@ -29,7 +29,7 @@ Server* Server::instance = nullptr;
 		address.sin_port = htons( port );
 	 
 	
-		// Forcefully attaching socket to the port 8080
+		// Forcefully attaching socket to the port 
 		if (bind(server_fd, (struct sockaddr *)&address, sizeof(address))<0) {
 			std::cout << "bind failed" << std::endl;
 			exit(1);
@@ -39,9 +39,10 @@ Server* Server::instance = nullptr;
 		if (listen(server_fd, 3) < 0) {
 			std::cout << "listen" << std::endl;
 			exit(1);
+			
 		}
 	 
-		if ((new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen)) < 0) {
+		if ((new_socket = accept(server_fd, (struct sockaddr * )&address, (socklen_t*)&addrlen)) < 0) {
 			std::cout << "accept" << std::endl;
 			exit(1);
 		}

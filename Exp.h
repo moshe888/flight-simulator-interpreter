@@ -32,7 +32,7 @@ double expression_to_value(vector<string> parameters, SymbolTable *symbol_table)
         }
         
         string var;
-        var.push_back(str[i]);//?
+        var.push_back(str[i]);
         i++;
         while ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= '0' && str[i] <= '9') || str[i] == '_')
         {

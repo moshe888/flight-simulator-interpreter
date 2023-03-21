@@ -1,10 +1,6 @@
 #include "Connect.h"
 
 
- 
- 
-	
-
 	int Connect::doCommand(const Line& line) {
         cout << "The client ready? enter 1" << endl;
 		int x;

@@ -11,25 +11,25 @@
 using namespace std;
 
 class Server{
-	int new_socket;
+    int new_socket;
     static Server* instance;
-	
+
+    // Private constructor to ensure singleton class
     Server() : new_socket(0)
-	{}
+    {}
 
 public:
-     static Server* getInstance() {
+    // Singleton implementation, get the instance of the server
+    static Server* getInstance() {
         if (!instance ) {
             instance = new Server();
         }
         return instance;
     }
 
-	void activate(int port) ;
-	 
-    
+    // Start listening to incoming connections on the given port
+    void activate(int port) ;
+ 
+    // Read data from the connected client
     string Read();
- 
- };
-
- 
+};

@@ -17,10 +17,9 @@ using std::vector;
 class Line
 {
 public:
-    // Interpreter* interpreter;
-    // string str_line;
+
     string name_command;
     vector<string> parameters;
     
-    vector<Line> list_command; //עדיף כמחלקה בפני עצמה 
+    vector<Line> list_command;  
 };

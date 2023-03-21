@@ -8,6 +8,7 @@ SymbolTable* SymbolTable::instance = nullptr;
 
 SymbolTable *SymbolTable::get_instance()//?
 {
+    // lock_guard<mutex> lock(mtx);
     if (!instance) {
         instance = new SymbolTable();
     }
@@ -23,7 +24,7 @@ void SymbolTable::set(const string& key, double d)
 double SymbolTable::get(const string& key)
 {
     lock_guard<mutex> lock(mtx);
-    return symbol_table[key];//if not faund?
+    return symbol_table[key]; 
 }
 
 bool SymbolTable::exists(string key)

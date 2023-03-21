@@ -1,17 +1,83 @@
+#pragma once
+
+#include "Command.h"
 #include <string>
 #include <thread>
 #include <map>
 #include <iostream>
+#include "SymbolTable.h"
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include "Command.h"
-#include "SymbolTable.h"
 #include "server.h"
+#include "Tools.cpp"
 #include "OpenServerCommand.h"
 
  
 
+
+
+
+
+int OpenServerCommand::doCommand(const Line &line) {
+    int port = std::stoi(line.parameters[0]);
+    int seconds = std::stoi(line.parameters[1]);
+
+    server->activate(port);
+    std::cout << "open server" << std::endl;
+
+    thread = std::thread(read_from_server, seconds, port, symbol_table, server);
+
+    return 0;
+}
+
+
+
+void OpenServerCommand::read_from_server(int seconds, int port, SymbolTable *symbol_table, Server *server) {
+    vector<string> xml = initXmlTable();  
+
+    ofstream file;
+    file.open("out.txt");
+   
+    while (1) {
+        file << "--------------\n";
+
+        std::string response = server->Read();
+
+        if (response.empty()) {
+            cout << "The program is over"<< endl;
+            break;
+        }
+        file << response << "\n";
+       
+        vector<string> xml = initXmlTable();
+    	vector<string> data = Tools::split(response, ",");
+		updateSymbolTable(symbol_table ,data, xml, file);
+
+        sleep(1 / seconds);
+    }
+   
+    file.close();
+}
+
+
+void OpenServerCommand::updateSymbolTable(SymbolTable* symbol_table,const vector<string>& data, const vector<string>& xml, ofstream& file) {
+    for (int i = 0; i < xml.size(); i++) {
+        if (data[i].empty() || data[i] == " ") {
+            continue;
+        }
+        double number = stod(data[i]);
+        for (const std::pair<string, string> &p : symbol_table->get_names()) {
+            if (p.second == xml[i]) {
+                symbol_table->set(p.first, number);
+                file << p.first << "  updating to : " << symbol_table->get(p.first) << endl;
+                break;
+            }
+        }
+    }
+}
+
+ 
 vector<string> OpenServerCommand::initXmlTable()
 {
 	vector<string> xmlVal;
@@ -54,65 +120,3 @@ vector<string> OpenServerCommand::initXmlTable()
 	xmlVal.push_back("/engines/engine/rpm");
 	return xmlVal;
 }
-
-int OpenServerCommand ::doCommand(const Line &line)
-{
-	int port = std::stoi(line.parameters[0]);
-	int seconds = std::stoi(line.parameters[1]);
-
-	server->activate(port);
-	std::cout << "open server" << std::endl;
-
-	thread = std::thread(read_from_server, seconds, port, symbol_table, server);
-
-	return 0;
-}
-
-void OpenServerCommand::read_from_server(int seconds, int port, SymbolTable *symbol_table, Server *server)
-{
-	vector<string> xml = initXmlTable();  
-
-	ofstream file;
-	file.open("out.txt");
-	
-	while (1)
-	{
-		file << "--------------\n";
-
-		std::string response = server->Read();
-
-		if (response == "") {
-			cout << "response == """ + response << endl;
-			break;
-		}
-		file << response << "\n";
-		vector<string> spl = Tools::split(response, ",");
-		 
-		file << spl.size() << endl;
-		for (int i = 0; i < xml.size(); i++)
-		{
-			if (spl[i] == "" || spl[i] == " ")
-			{
-				continue;
-			}
-			double number = stod(spl[i]);
-			for (const std::pair<string, string> &p : symbol_table->get_names())
-			{
-				if (p.second == xml[i])
-				{
-						// cout << p.first  << " updating to :" << number << endl;
-					
-					symbol_table->set(p.first, number);
-					file << p.first << "  updating to : " << symbol_table->get(p.first) << endl;
-					break;
-				}
-			}
-
-		}
-		sleep(1 / seconds);
-	}
-	
-	file.close();
-}
-
- 

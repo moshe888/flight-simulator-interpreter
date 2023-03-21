@@ -10,6 +10,6 @@ class Var : public Command {
 public:
     Var() : Command(), symbol_table(SymbolTable::get_instance())
     {}
-
+    // Implement doCommand function to handle var command
     int doCommand(const Line& line); 
 };
